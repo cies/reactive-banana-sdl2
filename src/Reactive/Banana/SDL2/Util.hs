@@ -4,7 +4,7 @@
 module Reactive.Banana.SDL2.Util ( addHandler, fire, sdlEvent, tickEvent
                                 , keyEvent, keyDownEvent, keyUpEvent, mouseEvent, mouseButtonEvent
                                 , keyFilter, keyUpFilter
-                                , mouseEventWithin
+                                , mouseEventWithin, tickDiffEvent
                                 , whileM, successive ) where
 
 import           Control.Monad              (liftM, when)
