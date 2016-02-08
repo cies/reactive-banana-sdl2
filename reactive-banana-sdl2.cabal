@@ -1,5 +1,5 @@
 name:                reactive-banana-sdl2
-version:             0.1.0.0
+version:             0.1.1.0
 synopsis:            Reactive Banana integration with SDL2
 description:         Provides bindings and convenience functions for using Reactive Banana with SDL2.
                      Please see README.md
@@ -19,9 +19,9 @@ library
   exposed-modules:     Reactive.Banana.SDL2
                      , Reactive.Banana.SDL2.Types
                      , Reactive.Banana.SDL2.Util
-  build-depends:       base >= 4.7 && < 5
-                     , reactive-banana >= 1.1.0 && < 1.2.0
-                     , sdl2 >= 2.1.0  && < 2.2.0
+  build-depends:       base             >= 4.7      && < 5
+                     , reactive-banana  >= 1.1.0    && < 1.2.0
+                     , sdl2             >= 2.1.0    && < 2.2.0
   default-language:    Haskell2010
 
 
