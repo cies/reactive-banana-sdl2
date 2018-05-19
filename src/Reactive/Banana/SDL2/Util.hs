@@ -74,7 +74,7 @@ keyEvent = filterE isKey
 keyDownEvent :: WrappedEvent -> R.Event SDL.Keysym
 keyDownEvent = filterJust . (isDown <$>) . keyEvent
   where isDown (SDL.KeyboardEvent (KeyboardEventData _ Pressed _ k)) = Just k
-        isDown _ = Nothing
+        isDown _                                                     = Nothing
 
 -- | Event carrying the key pressed up
 keyUpEvent :: WrappedEvent -> R.Event SDL.Keysym
@@ -90,7 +90,7 @@ mouseEvent esdl = unionWith f mouseMotion (mouseButtonEvent esdl)
     mouseMotion =  filterE isMotion $ esdl
     isMotion e = case e of
         SDL.MouseMotionEvent MouseMotionEventData {} -> True
-        otherwise -> False
+        otherwise                                    -> False
 
 -- | Mouse button event
 mouseButtonEvent :: WrappedEvent -> WrappedEvent
@@ -98,17 +98,19 @@ mouseButtonEvent = filterE isButton
   where
     isButton e = case e of
         SDL.MouseButtonEvent MouseButtonEventData{} -> True
-        otherwise -> False
+        otherwise                                   -> False
 
 -- | Mouse event occuring inside a given area
 mouseEventWithin :: Rect -> WrappedEvent -> WrappedEvent
 mouseEventWithin ~(Rect x y w h) = filterE isWithin
   where
-    within pos = undefined
+    within (SDL.P (SDL.V2 mx' my')) = (mx >= x && mx <= x + w)
+      && (my >= y && my <= y + h)
+      where  (mx, my) = (fromIntegral mx', fromIntegral my')
     isWithin e = case e of
         SDL.MouseMotionEvent (MouseMotionEventData _ _ _ pos _) -> within pos
         SDL.MouseButtonEvent (MouseButtonEventData _ _ _ _ _ pos) -> within pos
-        otherwise -> False
+        _ -> False
 
 -- | Filter an event on a particular key being held down
 keyFilter :: SDL.Keycode-> SDL.EventPayload -> Bool
